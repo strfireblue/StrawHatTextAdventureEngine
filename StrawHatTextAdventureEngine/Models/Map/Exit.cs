@@ -8,5 +8,12 @@ namespace StrawHatTextAdventureEngine.Models.Map
 {
     public class Exit
     {
+
+        public string Name { get; set; }
+
+        public string Key { get; set; }
+        public Room Destination { get; set; }
+
+
     }
 }
