@@ -72,8 +72,11 @@ namespace StrawHatTextAdventureEngine
             };
             
 
+
+            // TODO: Will probably end up with some global flags class
             bool quit = false;
 
+            // TODO: Probably wouldn't do this
             Models.Map.Room currentRoom = firstRoom;
 
             while (!quit)
