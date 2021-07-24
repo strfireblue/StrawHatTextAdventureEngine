@@ -12,5 +12,8 @@ namespace StrawHatTextAdventureEngine
     /// </summary>
     public static class GameFlags
     {
+
+        public static Dictionary<string, object> Flags = new Dictionary<string, object>();
+
     }
 }

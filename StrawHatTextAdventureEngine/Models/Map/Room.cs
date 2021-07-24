@@ -21,22 +21,30 @@ namespace StrawHatTextAdventureEngine.Models.Map
 
         private bool _Visited = false;
 
+        public Func<string> DescriptionPrintEvent { get; set; }
 
         public string GetDescription(bool useLongDescription = false)
         {
 
+            string extraText = "";
+
+            if (DescriptionPrintEvent != null)
+                extraText = DescriptionPrintEvent();
+
+
             if (useLongDescription)
-                return Description;
+                return Description + "  " + extraText;
 
             if (_Visited)
             {
-                return ShortDescription;
+                return ShortDescription + "  " + extraText;
             }
             else
             {
                 _Visited = true;
-                return Description;
+                return Description + "  " + extraText;
             }
+
         }
 
         

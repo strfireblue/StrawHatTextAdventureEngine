@@ -12,7 +12,13 @@ namespace StrawHatTextAdventureEngine.Models.Map
         public string Name { get; set; }
 
         public string Key { get; set; }
+
         public Room Destination { get; set; }
+
+        public Action EnterCallback { get; set; }
+
+        public Action ExitCallback { get; set; }
+
 
 
     }

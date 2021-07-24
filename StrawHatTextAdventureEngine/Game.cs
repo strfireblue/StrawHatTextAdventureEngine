@@ -34,9 +34,39 @@ namespace StrawHatTextAdventureEngine
                     new Models.Map.Exit()
                     {
                         Name = "Doorway",
-                        Key = "D"
+                        Key = "D",
+                        
+                        EnterCallback = () =>
+                        {
+                            if (!GameFlags.Flags.ContainsKey("FIRST_ROOM_TIMES_ENTERED"))
+                                GameFlags.Flags.Add("FIRST_ROOM_TIMES_ENTERED", 1);
+
+                            int timesVisited = (int)GameFlags.Flags["FIRST_ROOM_TIMES_ENTERED"];
+
+                            GameFlags.Flags["FIRST_ROOM_TIMES_ENTERED"] = ++timesVisited;
+                        }
                     }
+                },
+                DescriptionPrintEvent = () =>
+                {
+
+                    object timesEntered;
+
+                    if (GameFlags.Flags.TryGetValue("FIRST_ROOM_TIMES_ENTERED", out timesEntered))
+                    {
+
+                        if ((int)timesEntered > 3)
+                        {
+                            return "Wow you must really like this room, you've been here a lot.  ";
+                        }
+                        else
+                            return "";
+                    }
+                    else
+                        return "";
+                    
                 }
+                
             };
 
 
@@ -88,14 +118,14 @@ namespace StrawHatTextAdventureEngine
                 Console.WriteLine(currentRoom.GetDescription());
 
                 Console.WriteLine("");
-                Console.Write("Exits: ");
+                Console.WriteLine("Exits: ");
 
 
                 StringBuilder exitString = new StringBuilder();
 
                 foreach (var exit in currentRoom.Exits)
                 {
-                    exitString.Append($"({exit.Key}) {exit.Name}, ");
+                    exitString.AppendLine($"({exit.Key}) {exit.Name} ");
                 }
 
                 exitString.Remove(exitString.Length - 2, 2);
@@ -113,6 +143,9 @@ namespace StrawHatTextAdventureEngine
                     quit = true;
                 else if (keyInput.Key.ToString() == currentRoom.Exits[0].Key)
                 {
+
+                    currentRoom.Exits[0].EnterCallback?.Invoke();
+
                     currentRoom = currentRoom.Exits[0].Destination;
                 }
 
