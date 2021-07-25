@@ -36,15 +36,18 @@ namespace StrawHatTextAdventureEngine
                         Name = "Doorway",
                         Key = "D",
                         
-                        EnterCallback = () =>
-                        {
-                            if (!GameFlags.Flags.ContainsKey("FIRST_ROOM_TIMES_ENTERED"))
-                                GameFlags.Flags.Add("FIRST_ROOM_TIMES_ENTERED", 1);
+                        
 
-                            int timesVisited = (int)GameFlags.Flags["FIRST_ROOM_TIMES_ENTERED"];
 
-                            GameFlags.Flags["FIRST_ROOM_TIMES_ENTERED"] = ++timesVisited;
-                        }
+                        //Enter = () =>
+                        //{
+                        //    if (!GameFlags.Flags.ContainsKey("FIRST_ROOM_TIMES_ENTERED"))
+                        //        GameFlags.Flags.Add("FIRST_ROOM_TIMES_ENTERED", 1);
+
+                        //    int timesVisited = (int)GameFlags.Flags["FIRST_ROOM_TIMES_ENTERED"];
+
+                        //    GameFlags.Flags["FIRST_ROOM_TIMES_ENTERED"] = ++timesVisited;
+                        //}
                     }
                 },
                 DescriptionPrintEvent = () =>
@@ -64,9 +67,20 @@ namespace StrawHatTextAdventureEngine
                     }
                     else
                         return "";
-                    
+
                 }
-                
+
+            };
+
+
+            firstRoom.Exits[0].RoomEntered += (caller, args) =>
+            {
+                if (!GameFlags.Flags.ContainsKey("FIRST_ROOM_TIMES_ENTERED"))
+                    GameFlags.Flags.Add("FIRST_ROOM_TIMES_ENTERED", 1);
+
+                int timesVisited = (int)GameFlags.Flags["FIRST_ROOM_TIMES_ENTERED"];
+
+                GameFlags.Flags["FIRST_ROOM_TIMES_ENTERED"] = ++timesVisited;
             };
 
 
@@ -100,7 +114,7 @@ namespace StrawHatTextAdventureEngine
                 Intelligence = 5,
                 Strength = 7
             };
-            
+
 
 
             // TODO: Will probably end up with some global flags class
@@ -109,33 +123,41 @@ namespace StrawHatTextAdventureEngine
             // TODO: Probably wouldn't do this
             Models.Map.Room currentRoom = firstRoom;
 
+            Screens.ScreenGenerator screenGenerator = new Screens.ScreenGenerator();
+
             while (!quit)
             {
 
                 // Generate the room data
 
-                // TODO: Need a class for this to vary between this and possibl eaudio output, etc.  Some color console writer, too.
-                Console.WriteLine(currentRoom.GetDescription());
-
-                Console.WriteLine("");
-                Console.WriteLine("Exits: ");
+                screenGenerator.GenerateScreen(currentRoom);
 
 
-                StringBuilder exitString = new StringBuilder();
 
-                foreach (var exit in currentRoom.Exits)
-                {
-                    exitString.AppendLine($"({exit.Key}) {exit.Name} ");
-                }
 
-                exitString.Remove(exitString.Length - 2, 2);
+                //// TODO: Need a class for this to vary between this and possibl eaudio output, etc.  Some color console writer, too.
+                //Console.WriteLine(currentRoom.GetDescription());
 
-                Console.Write(exitString.ToString());
+                //Console.WriteLine("");
+                //Console.WriteLine("Exits: ");
 
-                Console.WriteLine("");
-                Console.WriteLine("");
 
-                // Generate menu items
+                //StringBuilder exitString = new StringBuilder();
+
+                //foreach (var exit in currentRoom.Exits)
+                //{
+                //    exitString.AppendLine($"({exit.Key}) {exit.Name} ");
+                //}
+
+                //exitString.Remove(exitString.Length - 2, 2);
+
+                //Console.Write(exitString.ToString());
+
+                //Console.WriteLine("");
+                //Console.WriteLine("");
+
+                //// Generate menu items
+
 
                 var keyInput = Console.ReadKey(true);
 
@@ -144,14 +166,16 @@ namespace StrawHatTextAdventureEngine
                 else if (keyInput.Key.ToString() == currentRoom.Exits[0].Key)
                 {
 
-                    currentRoom.Exits[0].EnterCallback?.Invoke();
+                    // TODO: The issue with events is that only the Exit class can call them, and this cuts to my design and now I have to think about what I really want to do and how I really want to create each screen
+                    //currentRoom.Exits[0].RoomEntered?.Invoke(this, EventArgs.Empty);
 
                     currentRoom = currentRoom.Exits[0].Destination;
                 }
+                else
+                {
+                    Console.WriteLine("Invalid command.");
+                }
 
-                // Wait for input
-
-                // Handle input
 
 
             }

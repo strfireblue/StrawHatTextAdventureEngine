@@ -15,7 +15,8 @@ namespace StrawHatTextAdventureEngine.Models.Map
 
         public Room Destination { get; set; }
 
-        public Action EnterCallback { get; set; }
+        public event EventHandler RoomEntered;
+
 
         public Action ExitCallback { get; set; }
 

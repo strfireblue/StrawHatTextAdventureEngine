@@ -15,6 +15,10 @@ namespace StrawHatTextAdventureEngine.Models.Items
 
         public string ShortDescription { get; set; }
 
+        public int Weight { get; set; }
+
+        public int Durability { get; set; }
+
 
 
     }
