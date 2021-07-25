@@ -4,22 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StrawHatTextAdventureEngine.Models.Items
+namespace StrawHatTextAdventureEngine.Models.Quests
 {
-    public class Item
+    public class Quest
     {
 
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public string ShortDescription { get; set; }
-
-        public int Weight { get; set; }
-
-        public int Durability { get; set; }
-
-
+        public List<Goal> Goals { get; set; }
 
     }
 }

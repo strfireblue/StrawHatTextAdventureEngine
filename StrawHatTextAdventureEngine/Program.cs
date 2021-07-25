@@ -6,7 +6,10 @@ namespace StrawHatTextAdventureEngine
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Game test = new Game(new Services.Game.GameDataService(), new Services.Game.SaveGameDataService());
+
+            test.MainLoop();
+            
         }
     }
 }
