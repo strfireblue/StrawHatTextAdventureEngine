@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using Console = Colorful.Console;
 using StrawHatTextAdventureEngine.Services.Game;
 
 namespace StrawHatTextAdventureEngine
@@ -26,9 +28,9 @@ namespace StrawHatTextAdventureEngine
             // TESTING DATA
             Models.Map.Room firstRoom = new Models.Map.Room()
             {
-                Name = "First Room",
-                Description = "The room before you is made of large slabs of stone, that glisten with moisture.  Deep down where you are the air is still and dank.  Light is being provided by some unseen source.",
-                ShortDescription = "The First Room glistens in holy wonder.",
+                Name = "Plain Stone Room",
+                Description = "The room before you is made of large slabs of stone, that glisten with moisture.  Light is being provided by some unseen source.  Deep down where you are the air is still and dank.  You're unsure how you got here, but it's now up to you to find your way out.  You lean against one of the slick walls, stomach burbling with hunger.  A simple doorway is your only way out that you can see.",
+                ShortDescription = "The room is made of large slabs of stone, that glisten with moisture.  The air is still and dank.  A simple doorway is in front of you.",
                 Exits = new List<Models.Map.Exit>()
                 {
                     new Models.Map.Exit()
@@ -86,9 +88,9 @@ namespace StrawHatTextAdventureEngine
 
             Models.Map.Room secondRoom = new Models.Map.Room()
             {
-                Name = "Second Room",
-                Description = "This is the Second Room.  The author got tired of dictating what should be before your very eyes.",
-                ShortDescription = "The Second Room is even chillier than the first.",
+                Name = "Corridor",
+                Description = "A stone corridor lay beyond the doorway.  Even though it's mere steps away, the air here is noticeably less musty and you feel you can take deep breaths without suffocating.  The corridor runs off into the distance, whatever sourceless light not being strong enough to higlight the end fully, but you think there's an archway.",
+                ShortDescription = "A stone corridor stretching off into the distance.  You can barely make out a stone archway at the end.",
                 Exits = new List<Models.Map.Exit>()
                 {
                     new Models.Map.Exit()
@@ -120,60 +122,44 @@ namespace StrawHatTextAdventureEngine
             // TODO: Will probably end up with some global flags class
             bool quit = false;
 
-            // TODO: Probably wouldn't do this
-            Models.Map.Room currentRoom = firstRoom;
+            player.CurrentRoom = firstRoom;
 
             Screens.ScreenGenerator screenGenerator = new Screens.ScreenGenerator();
 
             while (!quit)
             {
 
-                // Generate the room data
+                Models.Map.Room currentRoom = player.CurrentRoom;
 
+
+                // Generate the Screen for current room
                 screenGenerator.GenerateScreen(currentRoom);
-
-
-
-
-                //// TODO: Need a class for this to vary between this and possibl eaudio output, etc.  Some color console writer, too.
-                //Console.WriteLine(currentRoom.GetDescription());
-
-                //Console.WriteLine("");
-                //Console.WriteLine("Exits: ");
-
-
-                //StringBuilder exitString = new StringBuilder();
-
-                //foreach (var exit in currentRoom.Exits)
-                //{
-                //    exitString.AppendLine($"({exit.Key}) {exit.Name} ");
-                //}
-
-                //exitString.Remove(exitString.Length - 2, 2);
-
-                //Console.Write(exitString.ToString());
-
-                //Console.WriteLine("");
-                //Console.WriteLine("");
-
-                //// Generate menu items
-
 
                 var keyInput = Console.ReadKey(true);
 
                 if (keyInput.Key == ConsoleKey.Escape)
+                {
                     quit = true;
+                    Console.WriteLine("");
+                    Console.WriteLine("Thank you for playing!  We hope to see you again soon!", Color.MediumPurple);
+                }
                 else if (keyInput.Key.ToString() == currentRoom.Exits[0].Key)
                 {
 
                     // TODO: The issue with events is that only the Exit class can call them, and this cuts to my design and now I have to think about what I really want to do and how I really want to create each screen
                     //currentRoom.Exits[0].RoomEntered?.Invoke(this, EventArgs.Empty);
 
-                    currentRoom = currentRoom.Exits[0].Destination;
+                    
+
+                    player.CurrentRoom = currentRoom.Exits[0].Destination;
+                }
+                else if (keyInput.Key == ConsoleKey.Tab)
+                {
+                    Console.WriteLine("Menu is not accessible right now.", Color.IndianRed);
                 }
                 else
                 {
-                    Console.WriteLine("Invalid command.");
+                    Console.WriteLine("Invalid command.", Color.IndianRed);
                 }
 
 

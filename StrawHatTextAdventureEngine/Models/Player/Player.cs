@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StrawHatTextAdventureEngine.Models.Map;
+using System;
 using System.Collections.Generic;
 
 namespace StrawHatTextAdventureEngine.Models.Player
@@ -57,6 +58,8 @@ namespace StrawHatTextAdventureEngine.Models.Player
 
         public int Dexterity { get; set; } = 0;
 
+
+        public Room CurrentRoom { get; set; }
 
 
     }
