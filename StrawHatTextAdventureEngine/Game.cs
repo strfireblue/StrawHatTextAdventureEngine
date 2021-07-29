@@ -76,7 +76,7 @@ namespace StrawHatTextAdventureEngine
             };
 
 
-            firstRoom.Exits[0].RoomEntered += (caller, args) =>
+            firstRoom.Exits[0].ExitUsed += (caller, args) =>
             {
                 if (!GameFlags.Flags.ContainsKey("FIRST_ROOM_TIMES_ENTERED"))
                     GameFlags.Flags.Add("FIRST_ROOM_TIMES_ENTERED", 1);
@@ -125,7 +125,7 @@ namespace StrawHatTextAdventureEngine
 
             player.CurrentRoom = firstRoom;
 
-            Screens.ScreenGenerator screenGenerator = new Screens.ScreenGenerator();
+            ScreenGenerator screenGenerator = new ScreenGenerator();
 
             while (!quit)
             {
@@ -140,36 +140,7 @@ namespace StrawHatTextAdventureEngine
 
                 var keyInput = Console.ReadKey(true);
 
-                inputHandler.HandleInput(keyInput, player, screenActions);
-
-                
-
-                //if (keyInput.Key == ConsoleKey.Escape)
-                //{
-                //    quit = true;
-                //    Console.WriteLine("");
-                //    Console.WriteLine("Thank you for playing!  We hope to see you again soon!", Color.MediumPurple);
-                //}
-                //else if (keyInput.Key.ToString() == currentRoom.Exits[0].Key)
-                //{
-
-                //    // TODO: The issue with events is that only the Exit class can call them, and this cuts to my design and now I have to think about what I really want to do and how I really want to create each screen
-                //    //currentRoom.Exits[0].RoomEntered?.Invoke(this, EventArgs.Empty);
-
-                    
-
-                //    player.CurrentRoom = currentRoom.Exits[0].Destination;
-                //}
-                //else if (keyInput.Key == ConsoleKey.Tab)
-                //{
-                //    Console.WriteLine("Menu is not accessible right now.", Color.IndianRed);
-                //}
-                //else
-                //{
-                //    Console.WriteLine("Invalid command.", Color.IndianRed);
-                //}
-
-
+                inputHandler.HandleInput(keyInput, screenActions);
 
             }
 
