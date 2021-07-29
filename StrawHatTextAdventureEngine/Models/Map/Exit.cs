@@ -15,11 +15,20 @@ namespace StrawHatTextAdventureEngine.Models.Map
 
         public Room Destination { get; set; }
 
-        public event EventHandler RoomEntered;
+        public event EventHandler ExitUsed;
+
+        
 
 
         public Action ExitCallback { get; set; }
 
+
+        public void MoveToDestination(Player.Player player)
+        {
+            player.CurrentRoom = Destination;
+
+            ExitUsed?.Invoke(this, EventArgs.Empty);
+        }
 
 
     }
