@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using Console = Colorful.Console;
 using StrawHatTextAdventureEngine.Services.Game;
+using StrawHatTextAdventureEngine.Screens;
 
 namespace StrawHatTextAdventureEngine
 {
@@ -133,34 +134,40 @@ namespace StrawHatTextAdventureEngine
 
 
                 // Generate the Screen for current room
-                screenGenerator.GenerateScreen(currentRoom);
+                var screenActions = screenGenerator.GenerateScreen(player);
+
+                InputHandler inputHandler = new InputHandler();
 
                 var keyInput = Console.ReadKey(true);
 
-                if (keyInput.Key == ConsoleKey.Escape)
-                {
-                    quit = true;
-                    Console.WriteLine("");
-                    Console.WriteLine("Thank you for playing!  We hope to see you again soon!", Color.MediumPurple);
-                }
-                else if (keyInput.Key.ToString() == currentRoom.Exits[0].Key)
-                {
+                inputHandler.HandleInput(keyInput, player, screenActions);
 
-                    // TODO: The issue with events is that only the Exit class can call them, and this cuts to my design and now I have to think about what I really want to do and how I really want to create each screen
-                    //currentRoom.Exits[0].RoomEntered?.Invoke(this, EventArgs.Empty);
+                
+
+                //if (keyInput.Key == ConsoleKey.Escape)
+                //{
+                //    quit = true;
+                //    Console.WriteLine("");
+                //    Console.WriteLine("Thank you for playing!  We hope to see you again soon!", Color.MediumPurple);
+                //}
+                //else if (keyInput.Key.ToString() == currentRoom.Exits[0].Key)
+                //{
+
+                //    // TODO: The issue with events is that only the Exit class can call them, and this cuts to my design and now I have to think about what I really want to do and how I really want to create each screen
+                //    //currentRoom.Exits[0].RoomEntered?.Invoke(this, EventArgs.Empty);
 
                     
 
-                    player.CurrentRoom = currentRoom.Exits[0].Destination;
-                }
-                else if (keyInput.Key == ConsoleKey.Tab)
-                {
-                    Console.WriteLine("Menu is not accessible right now.", Color.IndianRed);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid command.", Color.IndianRed);
-                }
+                //    player.CurrentRoom = currentRoom.Exits[0].Destination;
+                //}
+                //else if (keyInput.Key == ConsoleKey.Tab)
+                //{
+                //    Console.WriteLine("Menu is not accessible right now.", Color.IndianRed);
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Invalid command.", Color.IndianRed);
+                //}
 
 
 

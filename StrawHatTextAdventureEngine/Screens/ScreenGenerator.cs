@@ -5,6 +5,8 @@ using System.Text;
 using System.Drawing;
 using StrawHatTextAdventureEngine.Models.Map;
 using Console = Colorful.Console;
+using StrawHatTextAdventureEngine.Models.Actions;
+using StrawHatTextAdventureEngine.Models.Player;
 
 namespace StrawHatTextAdventureEngine.Screens
 {
@@ -22,7 +24,7 @@ namespace StrawHatTextAdventureEngine.Screens
         /// </summary>
         /// <param name="room">The Room the player is currently in.</param>
         /// <param name="clearScreen">Whether to clear the screen before writing new text.  Default is false.</param>
-        public void GenerateScreen(Room room, bool clearScreen = false)
+        public Dictionary<string, IAction> GenerateScreen(Player player, bool clearScreen = false)
         {
             if (clearScreen)
                 Console.Clear();
@@ -31,6 +33,8 @@ namespace StrawHatTextAdventureEngine.Screens
                 Console.WriteLine("");
                 Console.WriteLine("");
             }
+
+            Room room = player.CurrentRoom;
 
 
             Console.WriteLine(room.Name, COLOR_ROOM_TITLE);
@@ -43,6 +47,15 @@ namespace StrawHatTextAdventureEngine.Screens
 
             // TODO: Print room actions (actions don't exist yet)
 
+            Dictionary<string, IAction> actions = new Dictionary<string, IAction>();
+
+            foreach (Exit exit in room.Exits)
+            {
+                actions.Add(exit.Key, new ExitRoomAction(exit, player));
+            }
+
+
+            return actions;
 
         }
 
