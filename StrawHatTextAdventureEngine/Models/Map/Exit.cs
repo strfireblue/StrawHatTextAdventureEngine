@@ -15,7 +15,9 @@ namespace StrawHatTextAdventureEngine.Models.Map
 
         public Room Destination { get; set; }
 
-        public event EventHandler RoomEntered;
+        public event EventHandler ExitUsed;
+
+        
 
 
         public Action ExitCallback { get; set; }
@@ -25,7 +27,7 @@ namespace StrawHatTextAdventureEngine.Models.Map
         {
             player.CurrentRoom = Destination;
 
-            RoomEntered?.Invoke(this, EventArgs.Empty);
+            ExitUsed?.Invoke(this, EventArgs.Empty);
         }
 
 
