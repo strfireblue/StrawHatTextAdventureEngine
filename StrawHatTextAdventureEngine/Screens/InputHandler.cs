@@ -13,6 +13,11 @@ namespace StrawHatTextAdventureEngine.Screens
     public class InputHandler
     {
 
+        /// <summary>
+        /// Handle the user input.  Calls the appropriate IAction class depending on which input was entered.
+        /// </summary>
+        /// <param name="keyPressed">ConsoleKeyInfo object representing the key the user pressed.</param>
+        /// <param name="actions">Dictionary of Actions that could be performed on a given screen.  Key is the key pressed, value is the IAction to perform.</param>
         public void HandleInput(ConsoleKeyInfo keyPressed, Dictionary<string, IAction> actions)
         {
 
