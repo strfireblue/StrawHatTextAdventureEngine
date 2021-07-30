@@ -56,6 +56,10 @@ namespace StrawHatTextAdventureEngine.Screens
             }
 
 
+            // Add Actions for system commands
+            actions.Add(ConsoleKey.Tab.ToString(), new PlayerMenuAction(player));
+            actions.Add(ConsoleKey.Escape.ToString(), new QuitAction());
+
             return actions;
 
         }

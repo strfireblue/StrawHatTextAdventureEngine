@@ -28,17 +28,6 @@ namespace StrawHatTextAdventureEngine.Screens
             {
                 actions[keyPressedStr].Execute();
             }
-
-            // TODO: Move these into their own IActions
-            else if (keyPressed.Key == ConsoleKey.Escape)
-            {
-                Console.WriteLine("");
-                Console.WriteLine("Thank you for playing!  We hope to see you again soon!", Color.MediumPurple);
-            }
-            else if (keyPressed.Key == ConsoleKey.Tab)
-            {
-                Console.WriteLine("Menu is not accessible right now.", Color.IndianRed);
-            }
             else
             {
                 Console.WriteLine("Invalid command.", Color.IndianRed);
