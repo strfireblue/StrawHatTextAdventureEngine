@@ -72,7 +72,7 @@ namespace StrawHatTextAdventureEngine.Models.Player
             set
             {
                 _CurrentRoom = value;
-                RoomChanged.Invoke(this, EventArgs.Empty);
+                RoomChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
