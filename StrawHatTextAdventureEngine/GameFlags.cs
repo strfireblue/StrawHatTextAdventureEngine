@@ -15,5 +15,18 @@ namespace StrawHatTextAdventureEngine
 
         public static Dictionary<string, object> Flags = new Dictionary<string, object>();
 
+
+        public static void IncrementGlobalActionsCounter()
+        {
+            // Increment global actions taken counter
+            if (!GameFlags.Flags.ContainsKey(Constants.GAME_FLAGS_TOTAL_ACTIONS_TAKEN))
+                GameFlags.Flags.Add(Constants.GAME_FLAGS_TOTAL_ACTIONS_TAKEN, 1);
+            else
+            {
+                int totalActionsTaken = (int)GameFlags.Flags[Constants.GAME_FLAGS_TOTAL_ACTIONS_TAKEN];
+                GameFlags.Flags[Constants.GAME_FLAGS_TOTAL_ACTIONS_TAKEN] = totalActionsTaken + 1;
+            }
+        }
+
     }
 }
