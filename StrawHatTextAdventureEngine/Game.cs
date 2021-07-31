@@ -82,14 +82,41 @@ namespace StrawHatTextAdventureEngine
                 {
                     new Models.Map.Exit()
                     {
-                        Name = "Stone Archway",
-                        Key = "S",
+                        Name = "Back",
+                        Key = "B",
                         Destination = firstRoom
                     }
                 }
             };
 
             firstRoom.Exits[0].Destination = secondRoom;
+
+
+            Models.Map.Room thirdRoom = new Models.Map.Room()
+            {
+                Name = "Musty Fountain",
+                Description = "Before you is an ancient stone fountain that gives off a very dank smell.  It smells like mold has been building for years.  Water flows from a diamond shaped cutout above a stone pool that's wide enough to fit your entire body three times over.",
+                ShortDescription = "An ancient stone fountain pours water into a stone basin, giving off a musty scent.  Water flows from a diamond shaped cutout in the wall.",
+                Exits = new List<Models.Map.Exit>()
+                {
+                    new Models.Map.Exit()
+                    {
+                        Name = "Corridor",
+                        Key = "C",
+                        Destination = secondRoom
+                    }
+                }
+                
+            };
+
+            secondRoom.Exits.Add(new Models.Map.Exit()
+            {
+                Name = "Stone Archway",
+                Key = "S",
+                Destination = thirdRoom
+            });
+
+
 
             Models.Player.Player player = new Models.Player.Player()
             {
