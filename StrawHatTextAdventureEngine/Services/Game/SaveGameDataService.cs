@@ -8,5 +8,13 @@ namespace StrawHatTextAdventureEngine.Services.Game
 {
     public class SaveGameDataService
     {
+
+        public void SaveGame()
+        {
+        }
+
+        public void LoadGame()
+        {
+        }
     }
 }

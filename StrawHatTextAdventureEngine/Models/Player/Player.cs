@@ -1,6 +1,6 @@
-﻿using StrawHatTextAdventureEngine.Models.Map;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using StrawHatTextAdventureEngine.Models.Map;
 
 namespace StrawHatTextAdventureEngine.Models.Player
 {
@@ -58,8 +58,23 @@ namespace StrawHatTextAdventureEngine.Models.Player
 
         public int Dexterity { get; set; } = 0;
 
+        public event EventHandler RoomChanged;
 
-        public Room CurrentRoom { get; set; }
+        private Room _CurrentRoom;
+
+        public Room CurrentRoom
+        {
+            get
+            {
+                return _CurrentRoom;
+            }
+            
+            set
+            {
+                _CurrentRoom = value;
+                RoomChanged.Invoke(this, EventArgs.Empty);
+            }
+        }
 
 
     }

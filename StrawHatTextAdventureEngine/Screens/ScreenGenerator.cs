@@ -52,7 +52,10 @@ namespace StrawHatTextAdventureEngine.Screens
 
             foreach (Exit exit in room.Exits)
             {
-                actions.Add(exit.Key, new ExitRoomAction(exit, player));
+                if (!actions.TryAdd(exit.Key, new ExitRoomAction(exit, player)))
+                {
+                    throw new ArgumentException($"An Action Key was used more than once.  This Screen already has an Action set for Key {exit.Key}");
+                }
             }
 
 

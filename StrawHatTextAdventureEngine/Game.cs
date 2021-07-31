@@ -12,6 +12,7 @@ namespace StrawHatTextAdventureEngine
 {
     public class Game
     {
+        private const string GAME_FLAGS_FIRST_ROOM_TIMES_ENTERED = "FIRST_ROOM_TIMES_ENTERED";
         private readonly GameDataService gameDataService;
         private readonly SaveGameDataService saveGameDataService;
 
@@ -38,27 +39,12 @@ namespace StrawHatTextAdventureEngine
                     {
                         Name = "Doorway",
                         Key = "D",
-                        
-                        
-
-
-                        //Enter = () =>
-                        //{
-                        //    if (!GameFlags.Flags.ContainsKey("FIRST_ROOM_TIMES_ENTERED"))
-                        //        GameFlags.Flags.Add("FIRST_ROOM_TIMES_ENTERED", 1);
-
-                        //    int timesVisited = (int)GameFlags.Flags["FIRST_ROOM_TIMES_ENTERED"];
-
-                        //    GameFlags.Flags["FIRST_ROOM_TIMES_ENTERED"] = ++timesVisited;
-                        //}
                     }
                 },
-                DescriptionPrintEvent = () =>
+                DescriptionPrinting = () =>
                 {
 
-                    object timesEntered;
-
-                    if (GameFlags.Flags.TryGetValue("FIRST_ROOM_TIMES_ENTERED", out timesEntered))
+                    if (GameFlags.Flags.TryGetValue(GAME_FLAGS_FIRST_ROOM_TIMES_ENTERED, out object timesEntered))
                     {
 
                         if ((int)timesEntered > 3)
@@ -78,12 +64,12 @@ namespace StrawHatTextAdventureEngine
 
             firstRoom.Exits[0].ExitUsed += (caller, args) =>
             {
-                if (!GameFlags.Flags.ContainsKey("FIRST_ROOM_TIMES_ENTERED"))
-                    GameFlags.Flags.Add("FIRST_ROOM_TIMES_ENTERED", 1);
+                if (!GameFlags.Flags.ContainsKey(GAME_FLAGS_FIRST_ROOM_TIMES_ENTERED))
+                    GameFlags.Flags.Add(GAME_FLAGS_FIRST_ROOM_TIMES_ENTERED, 1);
 
-                int timesVisited = (int)GameFlags.Flags["FIRST_ROOM_TIMES_ENTERED"];
+                int timesVisited = (int)GameFlags.Flags[GAME_FLAGS_FIRST_ROOM_TIMES_ENTERED];
 
-                GameFlags.Flags["FIRST_ROOM_TIMES_ENTERED"] = ++timesVisited;
+                GameFlags.Flags[GAME_FLAGS_FIRST_ROOM_TIMES_ENTERED] = ++timesVisited;
             };
 
 
