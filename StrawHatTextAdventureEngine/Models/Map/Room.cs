@@ -21,7 +21,23 @@ namespace StrawHatTextAdventureEngine.Models.Map
 
         private bool _Visited = false;
 
+        public bool Visited
+        {
+            get
+            {
+                return _Visited;
+            }
+
+            set
+            {
+                _Visited = value;
+                RoomVisited.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public Func<string> DescriptionPrinting { get; set; }
+
+        public event EventHandler RoomVisited;
 
         public string GetDescription(bool useLongDescription = false)
         {
@@ -47,7 +63,7 @@ namespace StrawHatTextAdventureEngine.Models.Map
 
         }
 
-        
+
 
 
     }
