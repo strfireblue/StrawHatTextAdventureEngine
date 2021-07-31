@@ -27,10 +27,14 @@ namespace StrawHatTextAdventureEngine.Screens
             if (actions.ContainsKey(keyPressedStr))
             {
                 actions[keyPressedStr].Execute();
+
+                GameFlags.IncrementGlobalActionsCounter();
             }
             else
             {
                 Console.WriteLine("Invalid command.", Color.IndianRed);
+
+                GameFlags.IncrementGlobalActionsCounter();
             }
 
 
