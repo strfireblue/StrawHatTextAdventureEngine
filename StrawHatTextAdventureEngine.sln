@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StrawHatTextAdventureEngine", "StrawHatTextAdventureEngine\StrawHatTextAdventureEngine.csproj", "{FFEFDAF9-5EA3-4B04-99E6-BCAF182564EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StrawHatTextAdventureEngine", "StrawHatTextAdventureEngine\StrawHatTextAdventureEngine.csproj", "{FFEFDAF9-5EA3-4B04-99E6-BCAF182564EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StrawHatTextAdventureDemoGame", "StrawHatTextAdventureDemoGame\StrawHatTextAdventureDemoGame.csproj", "{C2AF9D5A-ADD2-44BD-B9E1-56F9B7F0E3BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{FFEFDAF9-5EA3-4B04-99E6-BCAF182564EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFEFDAF9-5EA3-4B04-99E6-BCAF182564EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFEFDAF9-5EA3-4B04-99E6-BCAF182564EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2AF9D5A-ADD2-44BD-B9E1-56F9B7F0E3BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2AF9D5A-ADD2-44BD-B9E1-56F9B7F0E3BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2AF9D5A-ADD2-44BD-B9E1-56F9B7F0E3BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2AF9D5A-ADD2-44BD-B9E1-56F9B7F0E3BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

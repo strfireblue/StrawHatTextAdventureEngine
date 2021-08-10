@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using Console = Colorful.Console;
 using StrawHatTextAdventureEngine.Services.Game;
 using StrawHatTextAdventureEngine.Screens;
+using StrawHatTextAdventureEngine.Models.Map;
+using StrawHatTextAdventureEngine.Models.Player;
+using StrawHatTextAdventureEngine;
 
-namespace StrawHatTextAdventureEngine
+namespace StrawHatTextAdventureDemoGame
 {
     public class Game
     {
@@ -16,7 +14,7 @@ namespace StrawHatTextAdventureEngine
         private readonly GameDataService gameDataService;
         private readonly SaveGameDataService saveGameDataService;
 
-        public Game(Services.Game.GameDataService gameDataService, SaveGameDataService saveGameDataService)
+        public Game(GameDataService gameDataService, SaveGameDataService saveGameDataService)
         {
             this.gameDataService = gameDataService;
             this.saveGameDataService = saveGameDataService;
@@ -28,14 +26,14 @@ namespace StrawHatTextAdventureEngine
 
 
             // TESTING DATA
-            Models.Map.Room firstRoom = new Models.Map.Room()
+            Room firstRoom = new Room()
             {
                 Name = "Plain Stone Room",
                 Description = "The room before you is made of large slabs of stone, that glisten with moisture.  Light is being provided by some unseen source.  Deep down where you are the air is still and dank.  You're unsure how you got here, but it's now up to you to find your way out.  You lean against one of the slick walls, stomach burbling with hunger.  A simple doorway is your only way out that you can see.",
                 ShortDescription = "The room is made of large slabs of stone, that glisten with moisture.  The air is still and dank.  A simple doorway is in front of you.",
-                Exits = new List<Models.Map.Exit>()
+                Exits = new List<Exit>()
                 {
-                    new Models.Map.Exit()
+                    new Exit()
                     {
                         Name = "Doorway",
                         Key = "D",
@@ -73,14 +71,14 @@ namespace StrawHatTextAdventureEngine
             };
 
 
-            Models.Map.Room secondRoom = new Models.Map.Room()
+            Room secondRoom = new Room()
             {
                 Name = "Corridor",
                 Description = "A stone corridor lay beyond the doorway.  Even though it's mere steps away, the air here is noticeably less musty and you feel you can take deep breaths without suffocating.  The corridor runs off into the distance, whatever sourceless light not being strong enough to higlight the end fully, but you think there's an archway.",
                 ShortDescription = "A stone corridor stretching off into the distance.  You can barely make out a stone archway at the end.",
-                Exits = new List<Models.Map.Exit>()
+                Exits = new List<Exit>()
                 {
-                    new Models.Map.Exit()
+                    new Exit()
                     {
                         Name = "Back",
                         Key = "B",
@@ -92,24 +90,24 @@ namespace StrawHatTextAdventureEngine
             firstRoom.Exits[0].Destination = secondRoom;
 
 
-            Models.Map.Room thirdRoom = new Models.Map.Room()
+            Room thirdRoom = new Room()
             {
                 Name = "Musty Fountain",
                 Description = "Before you is an ancient stone fountain that gives off a very dank smell.  It smells like mold has been building for years.  Water flows from a diamond shaped cutout above a stone pool that's wide enough to fit your entire body three times over.",
                 ShortDescription = "An ancient stone fountain pours water into a stone basin, giving off a musty scent.  Water flows from a diamond shaped cutout in the wall.",
-                Exits = new List<Models.Map.Exit>()
+                Exits = new List<Exit>()
                 {
-                    new Models.Map.Exit()
+                    new Exit()
                     {
                         Name = "Corridor",
                         Key = "C",
                         Destination = secondRoom
                     }
                 }
-                
+
             };
 
-            secondRoom.Exits.Add(new Models.Map.Exit()
+            secondRoom.Exits.Add(new Exit()
             {
                 Name = "Stone Archway",
                 Key = "S",
@@ -118,7 +116,7 @@ namespace StrawHatTextAdventureEngine
 
 
 
-            Models.Player.Player player = new Models.Player.Player()
+            Player player = new Player()
             {
                 Name = "Buster Scruggs",
                 HP = 10,
@@ -143,7 +141,7 @@ namespace StrawHatTextAdventureEngine
             while (!quit)
             {
 
-                Models.Map.Room currentRoom = player.CurrentRoom;
+                Room currentRoom = player.CurrentRoom;
 
 
                 // Generate the Screen for current room

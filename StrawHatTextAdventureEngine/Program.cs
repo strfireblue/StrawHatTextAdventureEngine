@@ -6,7 +6,7 @@ namespace StrawHatTextAdventureEngine
     {
         static void Main(string[] args)
         {
-            Game test = new Game(new Services.Game.GameDataService(), new Services.Game.SaveGameDataService());
+            GameEngine test = new GameEngine(new Services.Game.GameDataService(), new Services.Game.SaveGameDataService());
 
             test.MainLoop();
             
