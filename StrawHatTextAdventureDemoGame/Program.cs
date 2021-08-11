@@ -1,9 +1,9 @@
-﻿using StrawHatTextAdventureEngine;
+﻿using System;
+using System.Collections.Generic;
+using StrawHatTextAdventureEngine;
 using StrawHatTextAdventureEngine.Models.Game;
 using StrawHatTextAdventureEngine.Models.Map;
 using StrawHatTextAdventureEngine.Models.Player;
-using System;
-using System.Collections.Generic;
 
 namespace StrawHatTextAdventureDemoGame
 {
