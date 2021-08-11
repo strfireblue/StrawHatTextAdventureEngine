@@ -1,41 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using Console = Colorful.Console;
-using StrawHatTextAdventureEngine.Services.Game;
-using StrawHatTextAdventureEngine.Screens;
+using StrawHatTextAdventureEngine;
+using StrawHatTextAdventureEngine.Models.Game;
+using StrawHatTextAdventureEngine.Models.Map;
+using StrawHatTextAdventureEngine.Models.Player;
 
-namespace StrawHatTextAdventureEngine
+namespace StrawHatTextAdventureDemoGame
 {
-    public class Game
+    class Program
     {
-        private const string GAME_FLAGS_FIRST_ROOM_TIMES_ENTERED = "FIRST_ROOM_TIMES_ENTERED";
-        private readonly GameDataService gameDataService;
-        private readonly SaveGameDataService saveGameDataService;
-
-        public Game(Services.Game.GameDataService gameDataService, SaveGameDataService saveGameDataService)
+        static void Main(string[] args)
         {
-            this.gameDataService = gameDataService;
-            this.saveGameDataService = saveGameDataService;
+
+            // Create GameData for the demo game
+            GameData demoGameData = GetDemoGameData();
+
+            // Create GameEngine to play the demo game
+            GameEngine gameEngine = new GameEngine(demoGameData, new());
+
+            // Start the GameEngine
+            gameEngine.StartGame();
         }
 
 
-        public void MainLoop()
+        /// <summary>
+        /// Create the GameData for our demo game in code.
+        /// </summary>
+        /// <returns>GameData object with demo game.</returns>
+        private static GameData GetDemoGameData()
         {
+
+            const string GAME_FLAGS_FIRST_ROOM_TIMES_ENTERED = "FIRST_ROOM_TIMES_ENTERED";
 
 
             // TESTING DATA
-            Models.Map.Room firstRoom = new Models.Map.Room()
+            Room firstRoom = new Room()
             {
                 Name = "Plain Stone Room",
                 Description = "The room before you is made of large slabs of stone, that glisten with moisture.  Light is being provided by some unseen source.  Deep down where you are the air is still and dank.  You're unsure how you got here, but it's now up to you to find your way out.  You lean against one of the slick walls, stomach burbling with hunger.  A simple doorway is your only way out that you can see.",
                 ShortDescription = "The room is made of large slabs of stone, that glisten with moisture.  The air is still and dank.  A simple doorway is in front of you.",
-                Exits = new List<Models.Map.Exit>()
+                Exits = new List<Exit>()
                 {
-                    new Models.Map.Exit()
+                    new Exit()
                     {
                         Name = "Doorway",
                         Key = "D",
@@ -73,17 +79,17 @@ namespace StrawHatTextAdventureEngine
             };
 
 
-            Models.Map.Room secondRoom = new Models.Map.Room()
+            Room secondRoom = new Room()
             {
                 Name = "Corridor",
                 Description = "A stone corridor lay beyond the doorway.  Even though it's mere steps away, the air here is noticeably less musty and you feel you can take deep breaths without suffocating.  The corridor runs off into the distance, whatever sourceless light not being strong enough to higlight the end fully, but you think there's an archway.",
                 ShortDescription = "A stone corridor stretching off into the distance.  You can barely make out a stone archway at the end.",
-                Exits = new List<Models.Map.Exit>()
+                Exits = new List<Exit>()
                 {
-                    new Models.Map.Exit()
+                    new Exit()
                     {
-                        Name = "Stone Archway",
-                        Key = "S",
+                        Name = "Back",
+                        Key = "B",
                         Destination = firstRoom
                     }
                 }
@@ -91,7 +97,34 @@ namespace StrawHatTextAdventureEngine
 
             firstRoom.Exits[0].Destination = secondRoom;
 
-            Models.Player.Player player = new Models.Player.Player()
+
+            Room thirdRoom = new Room()
+            {
+                Name = "Musty Fountain",
+                Description = "Before you is an ancient stone fountain that gives off a very dank smell.  It smells like mold has been building for years.  Water flows from a diamond shaped cutout above a stone pool that's wide enough to fit your entire body three times over.",
+                ShortDescription = "An ancient stone fountain pours water into a stone basin, giving off a musty scent.  Water flows from a diamond shaped cutout in the wall.",
+                Exits = new List<Exit>()
+                {
+                    new Exit()
+                    {
+                        Name = "Corridor",
+                        Key = "C",
+                        Destination = secondRoom
+                    }
+                }
+
+            };
+
+            secondRoom.Exits.Add(new Exit()
+            {
+                Name = "Stone Archway",
+                Key = "S",
+                Destination = thirdRoom
+            });
+
+
+
+            Player player = new Player()
             {
                 Name = "Buster Scruggs",
                 HP = 10,
@@ -104,34 +137,16 @@ namespace StrawHatTextAdventureEngine
                 Strength = 7
             };
 
-
-
-            // TODO: Will probably end up with some global flags class
-            bool quit = false;
-
-            player.CurrentRoom = firstRoom;
-
-            ScreenGenerator screenGenerator = new ScreenGenerator();
-
-            while (!quit)
+            GameData gameData = new GameData()
             {
+                Player = player,
+                StartingRoom = firstRoom
+            };
 
-                Models.Map.Room currentRoom = player.CurrentRoom;
-
-
-                // Generate the Screen for current room
-                var screenActions = screenGenerator.GenerateScreen(player);
-
-                InputHandler inputHandler = new InputHandler();
-
-                var keyInput = Console.ReadKey(true);
-
-                inputHandler.HandleInput(keyInput, screenActions);
-
-            }
-
+            return gameData;
 
         }
+
 
     }
 }
