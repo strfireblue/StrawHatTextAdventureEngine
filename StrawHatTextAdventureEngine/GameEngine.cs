@@ -44,7 +44,7 @@ namespace StrawHatTextAdventureEngine
 
 
 
-        public void MainLoop()
+        private void MainLoop()
         {
             Player player = GameData.Player;
 
