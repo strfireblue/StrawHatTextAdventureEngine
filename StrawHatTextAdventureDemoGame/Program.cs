@@ -12,15 +12,21 @@ namespace StrawHatTextAdventureDemoGame
         static void Main(string[] args)
         {
 
-            // Create new Demo Game Engine
+            // Create GameData for the demo game
             GameData demoGameData = GetDemoGameData();
 
+            // Create GameEngine to play the demo game
             GameEngine gameEngine = new GameEngine(demoGameData, new());
 
+            // Start the GameEngine
             gameEngine.StartGame();
         }
 
 
+        /// <summary>
+        /// Create the GameData for our demo game in code.
+        /// </summary>
+        /// <returns>GameData object with demo game.</returns>
         private static GameData GetDemoGameData()
         {
 
